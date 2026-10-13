@@ -175,51 +175,62 @@ const about: About = {
     ],
   },
   technical: {
-    display: true,
-    title: "Habilidades técnicas",
-    skills: [
-      {
-        title: "Backend",
-        description: (
-          <>APIs REST con arquitectura en capas, seguridad con JWT y persistencia con PostgreSQL.</>
-        ),
-        tags: [
-          { name: "Node.js", icon: "nodejs" },
-          { name: "Express", icon: "express" },
-          { name: "PostgreSQL", icon: "postgresql" },
-          { name: "JWT", icon: "jwt" },
-          { name: "Swagger", icon: "swagger" },
-        ],
-        images: [],
-      },
-      {
-        title: "Herramientas",
-        description: (
-          <>Control de versiones, testing y despliegue de aplicaciones backend.</>
-        ),
-        tags: [
-          { name: "Git", icon: "git" },
-          { name: "GitHub", icon: "github" },
-          { name: "Docker", icon: "docker" },
-          { name: "Postman", icon: "postman" },
-        ],
-        images: [],
-      },
-      {
-        title: "Frontend",
-        description: (
-          <>Conocimientos de React y Next.js para construir interfaces que consumen mis APIs.</>
-        ),
-        tags: [
-          { name: "React", icon: "react" },
-          { name: "Next.js", icon: "nextjs" },
-          { name: "Tailwind", icon: "tailwind" },
-          { name: "TypeScript", icon: "typescript" },
-        ],
-        images: [],
-      },
-    ],
-  },
+  display: true,
+  title: "Habilidades técnicas",
+  skills: [
+    {
+      title: "Lenguajes",
+      description: (
+        <>Lenguajes con los que trabajo habitualmente en proyectos backend y frontend.</>
+      ),
+      tags: [
+        { name: "TypeScript", icon: "typescript" },
+        { name: "JavaScript", icon: "javascript" },
+        { name: "SQL", icon: "postgresql" },
+      ],
+      images: [],
+    },
+    {
+      title: "Backend",
+      description: (
+        <>APIs REST con arquitectura en capas, seguridad con JWT y persistencia con PostgreSQL.</>
+      ),
+      tags: [
+        { name: "Node.js", icon: "nodejs" },
+        { name: "Express", icon: "express" },
+        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "JWT", icon: "jwt" },
+        { name: "Swagger", icon: "swagger" },
+      ],
+      images: [],
+    },
+    {
+      title: "Herramientas",
+      description: (
+        <>Control de versiones, testing y despliegue de aplicaciones backend.</>
+      ),
+      tags: [
+        { name: "Git", icon: "git" },
+        { name: "GitHub", icon: "github" },
+        { name: "Docker", icon: "docker" },
+        { name: "Postman", icon: "postman" },
+      ],
+      images: [],
+    },
+    {
+      title: "Frontend",
+      description: (
+        <>Conocimientos de React y Next.js para construir interfaces que consumen mis APIs.</>
+      ),
+      tags: [
+        { name: "React", icon: "react" },
+        { name: "Next.js", icon: "nextjs" },
+        { name: "Tailwind", icon: "tailwind" },
+      ],
+      images: [],
+    },
+  ],
+},
 };
 
 const blog: Blog = {
