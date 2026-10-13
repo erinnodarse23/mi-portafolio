@@ -2,7 +2,7 @@
 
 Portafolio web personal construido con Next.js, MDX y Tailwind CSS. Presenta mis proyectos de desarrollo backend, mi experiencia y un blog técnico.
 
-**🌐 Sitio en vivo:** _[próximamente cuando lo despliegue]_
+**🌐 Sitio en vivo:** [https://erinnodarse.vercel.app](https://erinnodarse.vercel.app)
 
 ## 👋 Sobre mí
 
