@@ -1,93 +1,77 @@
-# Magic Portfolio
+# Portafolio Personal — Erin Nodarse
 
-Magic Portfolio is a simple, clean, beginner-friendly portfolio template. It supports an MDX-based content system for projects and blog posts, an about / CV page and a gallery.
+Portafolio web personal construido con Next.js, MDX y Tailwind CSS. Presenta mis proyectos de desarrollo backend, mi experiencia y un blog técnico.
 
-View the demo [here](https://demo.magic-portfolio.com).
+**🌐 Sitio en vivo:** _[próximamente cuando lo despliegue]_
 
-![Magic Portfolio](public/images/og/home.jpg)
+## 👋 Sobre mí
 
-Launch your portfolio on [Aveiro](https://www.aveiro.app/marketplace/spotlight), our managed publishing platform. Update case studies, blog posts and content through MCP from your favorite AI tools.
+Soy **Backend Developer** radicado en Cuba, especializado en el diseño y construcción de APIs REST, modelos de datos y arquitecturas en capas.
 
-## Getting started
+- 🔭 Actualmente trabajando en sistemas backend con **Node.js**, **Express** y **PostgreSQL**.
+- 🌱 Aprendiendo buenas prácticas de arquitectura, testing y despliegue.
+- 💬 Pregúntame sobre **Node.js**, **PostgreSQL**, **JWT**, **arquitectura en capas** o **diseño de bases de datos**.
+- 📫 Cómo contactarme: [nodarseerin1@gmail.com](mailto:nodarseerin1@gmail.com) · [LinkedIn](https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba) · [GitHub](https://github.com/erinnodarse23)
 
-**1. Clone the repository**
-```
-git clone https://github.com/once-ui-system/magic-portfolio.git
-```
+## 🚀 Proyectos destacados
 
-**2. Install dependencies**
-```
+### [Sistema de Control de Telefonía Móvil — ECASA S.A.](/work/ecasa-telefonia)
+
+Sistema web full stack para la gestión de telefonía móvil corporativa. API REST en Node.js/Express con arquitectura en capas (17 controladores, 15 servicios, 11 repositorios), seguridad con JWT, y frontend en React 19 + Vite.
+
+**Stack:** React 19 · Vite · Node.js 18 · Express 5 · PostgreSQL 14 · JWT · bcrypt · multer · xlsx · exceljs · pdfkit · Swagger
+
+### [API REST para Gestión de Biblioteca — Node.js + Express + PostgreSQL](/work/biblioteca-santa-lucia)
+
+Backend para la gestión de autores, géneros, libros, usuarios, préstamos y reseñas. Arquitectura en capas, SQL puro con el cliente oficial `pg`, Swagger UI y reglas de negocio complejas (máximo 5 préstamos simultáneos, bloqueo por morosidad, reseña única).
+
+**Stack:** Node.js 18 · Express · PostgreSQL 14 · pg · express-validator · Swagger · nodemon
+
+## 🛠️ Stack del portafolio
+
+- **Framework:** Next.js 16 (App Router con Turbopack)
+- **Lenguaje:** TypeScript
+- **Contenido:** MDX (proyectos y blog)
+- **UI:** Once UI + Tailwind CSS
+- **Diseño personalizado:** Grid interactivo con canvas, tarjeta flotante con glassmorphism
+- **Deploy:** Vercel
+
+## 📂 Estructura del proyecto
+mi-portafolio/
+├── public/
+│ └── images/ # Imágenes, avatar, OG images, capturas de proyectos
+├── src/
+│ ├── app/
+│ │ ├── about/ # Página "Sobre mí"
+│ │ ├── work/ # Proyectos (MDX)
+│ │ ├── blog/ # Blog (MDX)
+│ │ └── layout.tsx # Layout raíz
+│ ├── components/ # Componentes reutilizables
+│ ├── resources/ # Configuración, contenido, estilos
+│ └── utils/ # Utilidades
+├── package.json
+└── next.config.mjs
+
+text
+
+## 💻 Correr el proyecto en local
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/erinnodarse23/mi-portafolio.git
+cd mi-portafolio
+
+# 2. Instalar dependencias
 npm install
-```
 
-**3. Run dev server**
-```
+# 3. Correr el servidor de desarrollo
 npm run dev
-```
+Abre http://localhost:3000 en el navegador.
 
-**4. Edit config**
-```
-src/resources/once-ui.config.js
-```
+🚀 Deploy
+Desplegado en Vercel. Cada push a main redespliega automáticamente.
 
-**5. Edit content**
-```
-src/resources/content.js
-```
+📄 Licencia
+Código personal. Las imágenes y capturas de proyectos son propiedad del autor.
 
-**6. Create blog posts / projects**
-```
-Add a new .mdx file to src/app/blog/posts or src/app/work/projects
-```
-
-Magic Portfolio was built with [Once UI](https://once-ui.com) for [Next.js](https://nextjs.org). It requires Node.js v18.17+.
-
-## Documentation
-
-Docs available at: [docs.once-ui.com](https://docs.once-ui.com/docs/magic-portfolio/quick-start)
-
-## Features
-
-### Once UI
-- All tokens, components & features of [Once UI](https://once-ui.com)
-
-### SEO
-- Automatic open-graph and X image generation with next/og
-- Automatic schema and metadata generation based on the content file
-
-### Design
-- Responsive layout optimized for all screen sizes
-- Timeless design without heavy animations and motion
-- Endless customization options through [data attributes](https://once-ui.com/docs/theming)
-
-### Content
-- Render sections conditionally based on the content file
-- Enable or disable pages for blog, work, gallery and about / CV
-- Generate and display social links automatically
-- Set up password protection for URLs
-
-### Localization
-- A localized, earlier version of Magic Portfolio is available with the next-intl library
-- To use localization, switch to the 'i18n' branch
-
-## Creators
-
-Lorant One: [Threads](https://www.threads.net/@lorant.one) / [LinkedIn](https://www.linkedin.com/in/lorant-one/)
-
-## Get involved
-
-- Join the Design Engineers Club on [Discord](https://discord.com/invite/5EyAQ4eNdS) and share your project with us!
-- Deployed your docs? Share it on the [Once UI Hub](https://once-ui.com/hub) too! We feature our favorite apps on our landing page.
-
-## License
-
-Distributed under the CC BY-NC 4.0 License.
-- Attribution is required.
-- Commercial usage is not allowed.
-- You can extend the license to [Dopler CC](https://dopler.app/license) by purchasing a [Once UI Pro](https://once-ui.com/pricing) license.
-
-See `LICENSE.txt` for more information.
-
-## Deploy with Vercel
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&project-name=portfolio&repository-name=portfolio&redirect-url=https%3A%2F%2Fgithub.com%2Fonce-ui-system%2Fmagic-portfolio&demo-title=Magic%20Portfolio&demo-description=Showcase%20your%20designers%20or%20developer%20portfolio&demo-url=https%3A%2F%2Fdemo.magic-portfolio.com&demo-image=%2F%2Fraw.githubusercontent.com%2Fonce-ui-system%2Fmagic-portfolio%2Fmain%2Fpublic%2Fimages%2Fog%2Fhome.jpg)
+Erin Nodarse — Backend Developer desde Cuba.
