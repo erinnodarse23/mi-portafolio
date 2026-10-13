@@ -1,0 +1,60 @@
+---
+title: "De Java a Node.js: cómo migré un backend completo"
+publishedAt: "2026-10-15"
+summary: "Cómo migré el backend de un sistema de gestión bibliotecaria de Spring Boot a Express, manteniendo las reglas de negocio y mejorando el rendimiento."
+team:
+  - name: "Erin Nodarse Gonzalez"
+    role: "Backend Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
+---
+
+## Por qué migrar
+
+El primer backend que construí para la Biblioteca Santa Lucía lo hice en **Java con Spring Boot**. Funcionaba bien: tenía su arquitectura en capas, sus validaciones con Bean Validation, su manejo global de errores con `@RestControllerAdvice` y su modelo de datos normalizado hasta FNBC.
+
+Pero cuando empecé a aplicar a trabajos remotos me encontré con un patrón: **la mayoría de las ofertas backend que me interesaban pedían Node.js**. No porque Java sea peor, sino porque el mercado remoto global está más inclinado hacia el stack JavaScript.
+
+Así que tomé una decisión: **migrar el mismo proyecto a Node.js sin perder nada por el camino**.
+
+## Qué significa "migrar" aquí
+
+No era empezar de cero. Era tomar el modelo de datos, las reglas de negocio y la arquitectura, y reimplementarlas en otro lenguaje. Eso obliga a entender realmente por qué cada decisión está donde está.
+
+En Java tenía esto:
+
+- **Entidades JPA** mapeadas con anotaciones.
+- **Repositorios** que extendían `JpaRepository`.
+- **Servicios** con `@Transactional`.
+- **DTOs** como `record` de Java 17.
+- **Validaciones** con `@NotBlank`, `@Min`, `@Max`.
+- **Manejo de errores** centralizado con `@RestControllerAdvice`.
+
+En Node.js lo traduje así:
+
+- **Repositorios** con SQL puro usando el cliente `pg`.
+- **Servicios** con funciones async que aplican las reglas de negocio.
+- **Controladores** que reciben peticiones y validan la entrada.
+- **Validaciones** con `express-validator` en lugar de anotaciones.
+- **Manejo de errores** con un middleware centralizado.
+
+## La decisión más importante: SQL puro en lugar de ORM
+
+En Java usaba Hibernate, que es un ORM muy potente pero a veces impredecible. Genera consultas que no siempre entiendes, y cuando algo va lento tienes que pelearte con el `EXPLAIN ANALYZE` para averiguar por qué.
+
+En Node.js decidí usar **SQL puro** con el cliente `pg`. Escribo las consultas a mano, las entiendo todas, y puedo optimizarlas sin capas intermedias.
+
+Por ejemplo, calcular las copias disponibles de un libro:
+
+```sql
+SELECT 
+  l.isbn,
+  l.titulo,
+  l.cantidad_ejemplares - COALESCE(
+    (SELECT COUNT(*) 
+     FROM prestamo p 
+     WHERE p.isbn = l.isbn AND p.fecha_devolucion_real IS NULL), 
+    0
+  ) AS copias_disponibles
+FROM libro l
+WHERE l.isbn = $1;

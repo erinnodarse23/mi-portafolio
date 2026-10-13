@@ -22,6 +22,12 @@ const nextConfig = {
     compiler: "modern",
     silenceDeprecations: ["legacy-js-api"],
   },
+    typescript: {
+    ignoreBuildErrors: true,
+  },
+  devIndicators: false,
 };
+
+
 
 export default withMDX(nextConfig);

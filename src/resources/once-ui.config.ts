@@ -13,15 +13,15 @@ import {
 } from "@/types";
 import { home, person, social } from "./content";
 
-// IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+
+const baseURL: string = "https://tu-portafolio.vercel.app";
 
 const routes: RoutesConfig = {
   "/": true,
   "/about": true,
   "/work": true,
-  "/blog": true,
-  "/gallery": true,
+  "/blog": true,   
+  "/gallery": false, // desactiva galería por ahora
 };
 
 const display: DisplayConfig = {
@@ -37,33 +37,44 @@ const protectedRoutes: ProtectedRoutesConfig = {
 };
 
 // Import and set font for each variant
-import { Geist } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
+//import { Geist } from "next/font/google";
+//import { Geist_Mono } from "next/font/google";
 
-const heading = Geist({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
+//const heading = Geist({
+  //variable: "--font-heading",
+  //subsets: ["latin"],
+ //display: "swap",
+//});
 
-const body = Geist({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
+//const body = Geist({
+  //variable: "--font-body",
+ // subsets: ["latin"],
+ // display: "swap",
+//});
 
-const label = Geist({
-  variable: "--font-label",
-  subsets: ["latin"],
-  display: "swap",
-});
+//const label = Geist({
+  //variable: "--font-label",
+ // subsets: ["latin"],
+ // display: "swap",
+//});
 
-const code = Geist_Mono({
-  variable: "--font-code",
-  subsets: ["latin"],
-  display: "swap",
-});
+//const code = Geist_Mono({
+  //variable: "--font-code",
+  //subsets: ["latin"],
+  //display: "swap",
+//});//
+// Fuentes de Google desactivadas temporalmente por problemas de red.
+// Cuando tengas mejor conexión, puedes reactivar las fuentes originales.
+// El portafolio usará fuentes del sistema (Arial/Helvetica) mientras tanto.
 
+//  - Fuentes desactivadas por problemas de red con Google Fonts
+const heading = { variable: "--font-heading", className: "", style: { fontFamily: "system-ui" } };
+
+const body = { variable: "--font-body", className: "", style: { fontFamily: "system-ui" } };
+
+const label = { variable: "--font-label", className: "", style: { fontFamily: "system-ui" } };
+
+const code = { variable: "--font-code", className: "", style: { fontFamily: "system-ui" } };
 const fonts: FontsConfig = {
   heading: heading,
   body: body,
@@ -73,16 +84,16 @@ const fonts: FontsConfig = {
 
 // default customization applied to the HTML in the main layout.tsx
 const style: StyleConfig = {
-  theme: "system", // dark | light | system
-  neutral: "gray", // sand | gray | slate | mint | rose | dusk | custom
-  brand: "cyan", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
-  accent: "red", // blue | indigo | violet | magenta | pink | red | orange | yellow | moss | green | emerald | aqua | cyan | custom
-  solid: "contrast", // color | contrast
-  solidStyle: "flat", // flat | plastic
-  border: "playful", // rounded | playful | conservative | sharp
-  surface: "translucent", // filled | translucent
-  transition: "all", // all | micro | macro
-  scaling: "100", // 90 | 95 | 100 | 105 | 110
+  theme: "system",
+  neutral: "sand",
+  brand: "moss",
+  accent: "yellow",
+  solid: "contrast",
+  solidStyle: "flat",
+  border: "rounded",
+  surface: "translucent",
+  transition: "all",
+  scaling: "100",
 };
 
 const dataStyle: DataStyleConfig = {

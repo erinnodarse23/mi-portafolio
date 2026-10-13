@@ -1,7 +1,7 @@
 import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
 import "@/resources/custom.css";
-
+import ParticlesBackground from "@/components/ParticlesBackground";
 import classNames from "classnames";
 
 import {
@@ -9,7 +9,7 @@ import {
   Column,
   Flex,
   Meta,
-  opacity,
+  Opacity,
   RevealFx,
   SpacingToken,
 } from "@once-ui-system/core";
@@ -36,6 +36,7 @@ export default async function RootLayout({
       suppressHydrationWarning
       as="html"
       lang={person.locale ?? "en"}
+      data-scroll-behavior="smooth"
       fillWidth
       className={classNames(
         fonts.heading.variable,
@@ -113,6 +114,7 @@ export default async function RootLayout({
           padding="0"
           horizontal="center"
         >
+          <ParticlesBackground />
           <RevealFx fill position="absolute">
             <Background
               mask={{
@@ -123,7 +125,7 @@ export default async function RootLayout({
               }}
               gradient={{
                 display: effects.gradient.display,
-                opacity: effects.gradient.opacity as opacity,
+                opacity: effects.gradient.opacity as Opacity,
                 x: effects.gradient.x,
                 y: effects.gradient.y,
                 width: effects.gradient.width,
@@ -134,20 +136,20 @@ export default async function RootLayout({
               }}
               dots={{
                 display: effects.dots.display,
-                opacity: effects.dots.opacity as opacity,
+                opacity: effects.dots.opacity as Opacity,
                 size: effects.dots.size as SpacingToken,
                 color: effects.dots.color,
               }}
               grid={{
                 display: effects.grid.display,
-                opacity: effects.grid.opacity as opacity,
+                opacity: effects.grid.opacity as Opacity,
                 color: effects.grid.color,
                 width: effects.grid.width,
                 height: effects.grid.height,
               }}
               lines={{
                 display: effects.lines.display,
-                opacity: effects.lines.opacity as opacity,
+                opacity: effects.lines.opacity as Opacity,
                 size: effects.lines.size as SpacingToken,
                 thickness: effects.lines.thickness,
                 angle: effects.lines.angle,
@@ -155,14 +157,20 @@ export default async function RootLayout({
               }}
             />
           </RevealFx>
-          <Flex fillWidth minHeight="16" s={{ hide: true }} />
-          <Header />
-          <Flex zIndex={0} fillWidth padding="l" horizontal="center" flex={1}>
-            <Flex horizontal="center" fillWidth minHeight="0">
-              <RouteGuard>{children}</RouteGuard>
-            </Flex>
-          </Flex>
-          <Footer />
+
+          {/* Tarjeta flotante con todo el contenido */}
+          <div className="portfolio-card-wrapper">
+            <div className="portfolio-card">
+              <Flex fillWidth minHeight="16" s={{ hide: true }} />
+              <Header />
+              <Flex zIndex={0} fillWidth padding="l" horizontal="center" flex={1}>
+                <Flex horizontal="center" fillWidth minHeight="0">
+                  <RouteGuard>{children}</RouteGuard>
+                </Flex>
+              </Flex>
+              <Footer />
+            </div>
+          </div>
         </Column>
       </Providers>
     </Flex>

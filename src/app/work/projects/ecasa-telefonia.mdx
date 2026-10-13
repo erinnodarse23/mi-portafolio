@@ -1,0 +1,39 @@
+---
+title: "Sistema de Control de Telefonía Móvil — ECASA S.A."
+summary: "Sistema web full stack para la gestión de telefonía móvil corporativa en la Empresa Cubana de Aeropuertos y Servicios Aeroportuarios."
+publishedAt: "2026-02-01"
+images: 
+   - "/images/projects/ecasa/login.png"
+   - "/images/projects/ecasa/dashboard.png"
+   - "/images/projects/ecasa/carga-excel.png"
+   - "/images/projects/ecasa/reporte-pdf.png"
+   - "/images/projects/ecasa/modo-claro.png"
+team:
+  - name: "Erin Nodarse Gonzalez"
+    role: "Arquitecto de software y desarrollador principal"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
+link: "https://github.com/erinnodarse23/ecasa-telefonia"
+---
+
+## El problema
+
+ECASA gestionaba su telefonía móvil corporativa con hojas de cálculo: duplicidad de datos, errores de digitación, sin trazabilidad, sin alertas de sobregasto y sin acceso remoto. Los excesos de consumo se detectaban tardíamente, generando sobrecostos operativos.
+
+## La solución
+
+Diseñé y construí un sistema web que automatiza la gestión completa: control de líneas, asignaciones, planes tarifarios, carga mensual de consumos desde Excel, alertas de sobregasto, dashboard ejecutivo y reportes exportables a PDF y Excel.
+
+## Decisiones de arquitectura
+
+- **Arquitectura en capas** (presentación → controladores → servicios → repositorios → entidades) con 17 controladores, 15 servicios y 11 repositorios. Sin dependencias circulares.
+- **Modelo de datos normalizado** en PostgreSQL (10 tablas) con índices parciales para consultas frecuentes y restricciones de exclusión (`EXCLUDE USING gist`) para impedir solapamiento de asignaciones activas y planes superpuestos.
+- **Seguridad**: JWT con blacklist de tokens invalidados, bcrypt para contraseñas, rate limiting, sanitización XSS con DOMPurify y captcha en login.
+- **Modelo de roles y permisos**: Administrador, Grupo Comunicaciones y Jefe de Unidad, con filtrado por UEB a nivel de backend, no solo en el frontend.
+- **Carga de Excel con validación multi-criterio**: formato, existencia en base de datos, duplicados y valores negativos. UPSERT para idempotencia.
+- **Auditoría completa** con tabla de trazas que registra usuario, fecha, hora, acción, entidad e IP.
+- **Testing**: caja negra (particiones de equivalencia, valores límite) y caja blanca (complejidad ciclomática V(G)=7 sobre métodos críticos).
+
+## Stack
+
+React 19 · Vite · Node.js 18 · Express 5 · PostgreSQL 14 · JWT · bcrypt · multer · xlsx · exceljs · pdfkit · node-cache · DOMPurify · Swagger/OpenAPI 3.0

@@ -1,0 +1,49 @@
+---
+title: "API REST para Gestión de Biblioteca — Node.js + Express + PostgreSQL"
+summary: "Backend para la gestión de autores, géneros, libros, usuarios, préstamos y reseñas, con arquitectura en capas, SQL puro, Swagger UI y reglas de negocio complejas."
+publishedAt: "2026-10-01"
+images: 
+    - "/images/projects/biblioteca/swagger-ui.png"
+    - "/images/projects/biblioteca/postman-detalle.png"
+    - "/images/projects/biblioteca/postman-5 prestamos activos.png"
+    - "/images/projects/biblioteca/diagrama-er.png"
+    - "/images/projects/biblioteca/schema-sql.png"
+team:
+  - name: "Erin Nodarse Gonzalez"
+    role: "Arquitecto backend y desarrollador principal"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
+link: "https://github.com/erinnodarse23/biblioteca-santa-lucia-v2"
+---
+
+## El contexto
+
+La Biblioteca Santa Lucía gestionaba su catálogo con fichas de cartón y hojas de cálculo no centralizadas: redundancia, pérdida de tiempo y sin acceso remoto. El proyecto consistió en diseñar y construir el backend de un sistema que digitalizara el control de préstamos, devoluciones y reseñas.
+
+## La solución
+
+Diseñé el modelo entidad-relación, lo normalicé hasta la Forma Normal de Boyce-Codd, lo implementé en PostgreSQL y construí una API REST con Node.js + Express que expone operaciones CRUD y funcionalidades especializadas: calificación promedio por libro, consulta de préstamos por rango de fechas, usuarios con préstamos vencidos y verificación de reseñas únicas.
+
+Esta es la **versión 2.0** del proyecto: originalmente desarrollado en Java + Spring Boot, migrado a Node.js + Express para unificar el stack backend del portafolio.
+
+## Decisiones de arquitectura
+
+- **Arquitectura en capas estricta** (Controller → Service → Repository → PostgreSQL) con 6 módulos de dominio, cada uno con sus 4 capas. Sin dependencias circulares.
+- **SQL puro en lugar de ORM**: usé el cliente oficial `pg` con consultas SQL escritas a mano, lo que da control total sobre el rendimiento y claridad en las queries.
+- **Modelo de datos normalizado hasta FNBC** (6 tablas) con justificación formal del proceso de normalización y del determinante `(id_usuario, ISBN)` como clave candidata en la tabla de reseñas.
+- **Reglas de negocio en la capa de servicio**: máximo 5 préstamos simultáneos por usuario, bloqueo por morosidad, verificación de disponibilidad de ejemplares, reseña única por usuario-libro y reseña solo después de la devolución.
+- **Validación declarativa** con `express-validator` en los endpoints, separando la validación del código de negocio.
+- **Manejo global de errores** con un middleware centralizado que devuelve respuestas JSON uniformes.
+- **Documentación interactiva** con Swagger UI (`swagger-jsdoc` + `swagger-ui-express`) para que cualquiera pueda probar la API sin Postman.
+- **CORS habilitado** desde el inicio, preparado para un frontend futuro.
+
+## Funcionalidades especiales
+
+- **Detalle completo de un libro**: autor, género, calificación promedio, total de reseñas y copias disponibles actualmente.
+- **Préstamos por rango de fechas**: filtrar los préstamos de un libro entre dos fechas.
+- **Usuarios con préstamos vencidos**: listado con la cantidad de vencidos por usuario.
+- **Verificación de reseña única**: comprobar si un usuario ya reseñó un libro específico.
+
+## Stack
+
+Node.js 18 · Express · PostgreSQL 14 · pg · express-validator · dotenv · cors · Swagger (swagger-jsdoc + swagger-ui-express) · nodemon

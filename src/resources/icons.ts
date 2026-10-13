@@ -1,5 +1,21 @@
 import { IconType } from "react-icons";
-
+import {
+  SiJavascript,
+  SiNextdotjs,
+  SiFigma,
+  SiSupabase,
+  SiNodedotjs,
+  SiExpress,
+  SiPostgresql,
+  SiJsonwebtokens,
+  SiSwagger,
+  SiGit,
+  SiDocker,
+  SiPostman,
+  SiReact,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 import {
   HiArrowUpRight,
   HiOutlineLink,
@@ -13,7 +29,6 @@ import {
   HiOutlineGlobeAsiaAustralia,
   HiOutlineRocketLaunch,
 } from "react-icons/hi2";
-
 import {
   PiHouseDuotone,
   PiUserCircleDuotone,
@@ -21,19 +36,26 @@ import {
   PiBookBookmarkDuotone,
   PiImageDuotone,
 } from "react-icons/pi";
-
 import {
-  SiJavascript,
-  SiNextdotjs,
-  SiFigma,
-  SiSupabase,
-} from "react-icons/si";
-
-import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaInstagram, FaXTwitter, FaFacebook, FaPinterest, FaWhatsapp, FaReddit, FaTelegram, } from "react-icons/fa6";
+  FaDiscord,
+  FaGithub,
+  FaLinkedin,
+  FaX,
+  FaThreads,
+  FaInstagram,
+  FaXTwitter,
+  FaFacebook,
+  FaPinterest,
+  FaWhatsapp,
+  FaReddit,
+  FaTelegram,
+} from "react-icons/fa6";
 
 export const iconLibrary: Record<string, IconType> = {
+  // Sistema
   arrowUpRight: HiArrowUpRight,
   arrowRight: HiArrowRight,
+  arrowUpRightFromSquare: HiArrowTopRightOnSquare,
   email: HiEnvelope,
   globe: HiOutlineGlobeAsiaAustralia,
   person: PiUserCircleDuotone,
@@ -43,27 +65,41 @@ export const iconLibrary: Record<string, IconType> = {
   calendar: HiCalendarDays,
   home: PiHouseDuotone,
   gallery: PiImageDuotone,
-  discord: FaDiscord,
   eye: HiOutlineEye,
   eyeOff: HiOutlineEyeSlash,
+  document: HiOutlineDocument,
+  rocket: HiOutlineRocketLaunch,
+
+  // Redes sociales
+  discord: FaDiscord,
   github: FaGithub,
   linkedin: FaLinkedin,
   x: FaX,
   twitter: FaXTwitter,
   threads: FaThreads,
-  arrowUpRightFromSquare: HiArrowTopRightOnSquare,
-  document: HiOutlineDocument,
-  rocket: HiOutlineRocketLaunch,
-  javascript: SiJavascript,
-  nextjs: SiNextdotjs,
-  supabase: SiSupabase,
-  figma: SiFigma,
+  instagram: FaInstagram,
   facebook: FaFacebook,
   pinterest: FaPinterest,
   whatsapp: FaWhatsapp,
   reddit: FaReddit,
   telegram: FaTelegram,
-  instagram: FaInstagram,
+
+  // Tecnologías
+  javascript: SiJavascript,
+  typescript: SiTypescript,
+  nextjs: SiNextdotjs,
+  react: SiReact,
+  nodejs: SiNodedotjs,
+  express: SiExpress,
+  postgresql: SiPostgresql,
+  jwt: SiJsonwebtokens,
+  swagger: SiSwagger,
+  git: SiGit,
+  docker: SiDocker,
+  postman: SiPostman,
+  tailwind: SiTailwindcss,
+  figma: SiFigma,
+  supabase: SiSupabase,
 };
 
 export type IconLibrary = typeof iconLibrary;

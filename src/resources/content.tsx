@@ -2,55 +2,46 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Erin",
+  lastName: "Nodarse Gonzalez",
+  name: `Erin Nodarse`,
+  role: "Backend Developer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
-  locale: "en", // BCP 47 language tag for the HTML lang attribute, e.g., 'en', 'ja', 'zh-TW'
+  email: "nodarseerin1@gmail.com",
+  location: "America/Havana", // Zona horaria de Cuba
+  languages: ["Español (nativo)", "Inglés (básico)"],
+  locale: "es", // Español para el atributo lang del HTML
 };
 
 const newsletter: Newsletter = {
-  display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: <>My weekly newsletter about creativity and engineering</>,
+  display: false, // Desactivado por ahora
+  title: <>Suscríbete al newsletter de {person.firstName}</>,
+  description: <>Novedades sobre desarrollo web y proyectos</>,
 };
 
 const social: Social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
-  // Set essentials: true for links you want to show on the about page
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/erinnodarse23",
     essential: true,
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
-    essential: true,
-  },
-  {
-    name: "Instagram",
-    icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
-    essential: false,
-  },
-  {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    link: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba",
     essential: true,
   },
   {
     name: "Email",
     icon: "email",
-    link: `mailto:${person.email}`,
+    link: `https://mail.google.com/mail/?view=cm&fs=1&to=${person.email}`,
+    essential: true,
+  },
+  {
+    name: "WhatsApp",
+    icon: "whatsapp",
+    link: "https://wa.me/5359794572",
     essential: true,
   },
 ];
@@ -58,36 +49,37 @@ const social: Social = [
 const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
-  label: "Home",
-  title: `${person.name}'s Portfolio`,
-  description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  label: "Inicio",
+  title: `${person.name} – Backend Developer | Node.js · PostgreSQL`,
+  description:`Portafolio de ${person.name}, Backend Developer especializado en Node.js, PostgreSQL y arquitectura de APIs REST.`,
+  headline: <>Backend Developer · Node.js · PostgreSQL</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
+        <strong className="ml-4">Proyecto destacado</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
-          Featured work
+          ECASA Telefonía
         </Text>
       </Row>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: "/work/ecasa-telefonia",
   },
   subline: (
-    <>
-      I'm {person.firstName}, a {person.role.toLowerCase()} at{" "}
-      <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
-    </>
-  ),
+  <>
+    Construyo sistemas backend robustos, desde el modelo de datos hasta la API.
+    Experiencia en <Text as="span" weight="strong">arquitectura en capas</Text>,
+    seguridad con JWT y testing estructurado. Busco oportunidades remotas.
+  </>
+),
 };
 
 const about: About = {
   path: "/about",
-  label: "About",
-  title: `About – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  label: "Sobre mí",
+  title: `Sobre mí – ${person.name}`,
+  description: `Conoce a ${person.name}, ${person.role} desde Cuba`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -96,211 +88,160 @@ const about: About = {
     display: true,
   },
   calendar: {
-    display: true,
-    link: "https://cal.com",
+    display: false, // Desactivado hasta que tengas Cal.com
+    link: "",
   },
   intro: {
-    display: true,
-    title: "Introduction",
-    description: (
-      <>
-        {person.firstName} is a {person.location.split("/")[1]?.replace("_", " ")}-based {person.role.toLowerCase()} with a passion for transforming complex challenges
-        into simple, elegant design solutions. Their work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
-      </>
-    ),
-  },
+  display: true,
+  title: "Introducción",
+  description: (
+    <>
+      Soy backend developer radico en Cuba. Me especializo en diseñar y construir
+      APIs REST, modelos de datos y arquitecturas en capas. He diseñado la
+      arquitectura de software del sistema de gestión de telefonía móvil para
+      ECASA S.A. y del sistema de gestión para la Biblioteca Santa Lucía, este
+      último como proyecto académico enfocado exclusivamente en backend. En ambos
+      aprendí a valorar la seguridad, el testing y la separación clara de
+      responsabilidades. Busco oportunidades remotas donde pueda aportar mi
+      experiencia en backend y seguir creciendo. Estoy mejorando mi inglés
+      técnico para trabajar con equipos internacionales; mi español es nativo.
+    </>
+  ),
+},
   work: {
-    display: true, // set to false to hide this section
-    title: "Work Experience",
+    display: true,
+    title: "Experiencia",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "ECASA S.A.",
+        timeframe: "2025 – 2026",
+        role: "Arquitecto backend y desarrollador principal",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Diseñé y construí la API REST en Node.js/Express con arquitectura en capas
+            (17 controladores, 15 servicios, 11 repositorios) para la gestión de
+            telefonía móvil corporativa.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
-          </>,
-        ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
-        achievements: [
-          <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Implementé seguridad con JWT (blacklist de tokens invalidados), bcrypt,
+            rate limiting y sanitización XSS con DOMPurify.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Diseñé el modelo de datos en PostgreSQL (10 tablas) con índices parciales
+            y restricciones de exclusión para impedir solapamiento de asignaciones.
+          </>,
+          <>
+            Desarrollé el módulo de carga masiva desde Excel con validación multi-criterio
+            y UPSERT para idempotencia.
           </>,
         ],
         images: [],
       },
+      {
+  company: "Biblioteca Santa Lucía",
+  timeframe: "Proyecto de curso, 2026",
+  role: "Arquitecto backend y desarrollador principal",
+  achievements: [
+    <>
+      Diseñé el modelo entidad-relación y lo normalicé hasta la Forma Normal de
+      Boyce-Codd (FNBC) con justificación formal del proceso.
+    </>,
+    <>
+      Construí una API REST con Node.js + Express y PostgreSQL, aplicando reglas
+      de negocio complejas (máximo 5 préstamos simultáneos, bloqueo por morosidad,
+      reseña única).
+    </>,
+    <>
+      Implementé consultas en SQL puro con el cliente oficial pg para cálculo de
+      calificación promedio, disponibilidad de ejemplares y usuarios vencidos.
+    </>,
+    <>
+      Documenté la API con Swagger UI para que cualquiera pueda probarla sin
+      necesidad de Postman.
+    </>,
+  ],
+  images: [],
+},
     ],
   },
   studies: {
-    display: true, // set to false to hide this section
-    title: "Studies",
+    display: true,
+    title: "Estudios",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
-      },
-      {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Universidad Agraria de La Habana",
+        description: <>Ingeniería Informática. En curso.</>,
       },
     ],
   },
-  technical: {
-    display: true, // set to false to hide this section
-    title: "Technical skills",
-    skills: [
-      {
-        title: "Figma",
-        description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
-        ),
-        tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        title: "Next.js",
-        description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
-        ),
-        tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-    ],
-  },
+ technical: {
+  display: true,
+  title: "Habilidades técnicas",
+  skills: [
+    {
+      title: "Backend",
+      description: (
+        <>APIs REST con arquitectura en capas, seguridad con JWT y persistencia con PostgreSQL.</>
+      ),
+      tags: [
+        { name: "Node.js", icon: "nodejs" },
+        { name: "Express", icon: "express" },
+        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "JWT", icon: "jwt" },
+        { name: "Swagger", icon: "swagger" },
+      ],
+      images: [],
+    },
+    {
+      title: "Herramientas",
+      description: (
+        <>Control de versiones, testing y despliegue de aplicaciones backend.</>
+      ),
+      tags: [
+        { name: "Git", icon: "git" },
+        { name: "GitHub", icon: "github" },
+        { name: "Docker", icon: "docker" },
+        { name: "Postman", icon: "postman" },
+      ],
+      images: [],
+    },
+    {
+      title: "Frontend",
+      description: (
+        <>Conocimientos de React y Next.js para construir interfaces que consumen mis APIs.</>
+      ),
+      tags: [
+        { name: "React", icon: "react" },
+        { name: "Next.js", icon: "nextjs" },
+        { name: "Tailwind", icon: "tailwind" },
+        { name: "TypeScript", icon: "typescript" },
+      ],
+      images: [],
+    },
+  ],
+},
 };
 
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
-  // Create new blog posts by adding a new .mdx file to app/blog/posts
-  // All posts will be listed on the /blog route
+  title: "Escribo sobre desarrollo web y proyectos",
+  description: `Lee lo que ${person.name} ha estado haciendo recientemente`,
 };
 
 const work: Work = {
   path: "/work",
-  label: "Work",
-  title: `Projects – ${person.name}`,
-  description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
-  // All projects will be listed on the /home and /work routes
+  label: "Proyectos",
+  title: `Proyectos – ${person.name}`,
+  description: `Proyectos de desarrollo de ${person.name}`,
 };
 
 const gallery: Gallery = {
   path: "/gallery",
-  label: "Gallery",
-  title: `Photo gallery – ${person.name}`,
-  description: `A photo collection by ${person.name}`,
-  // Images by https://lorant.one
-  // These are placeholder images, replace with your own
-  images: [
-    {
-      src: "/images/gallery/horizontal-1.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-4.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/horizontal-3.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-1.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/vertical-2.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-    {
-      src: "/images/gallery/horizontal-2.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/horizontal-4.jpg",
-      alt: "image",
-      orientation: "horizontal",
-    },
-    {
-      src: "/images/gallery/vertical-3.jpg",
-      alt: "image",
-      orientation: "vertical",
-    },
-  ],
+  label: "Galería",
+  title: `Galería – ${person.name}`,
+  description: `Colección de imágenes de ${person.name}`,
+  images: [], // Vacía por ahora, añade tus propias imágenes después
 };
 
 export { person, social, newsletter, home, about, blog, work, gallery };

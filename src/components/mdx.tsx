@@ -7,7 +7,6 @@ import {
   HeadingLink,
   Text,
   InlineCode,
-  CodeBlock,
   TextProps,
   MediaProps,
   Accordion,
@@ -122,31 +121,31 @@ function createInlineCode({ children }: { children: ReactNode }) {
 }
 
 function createCodeBlock(props: any) {
-  // For pre tags that contain code blocks
+  // Extraer lenguaje y children si vienen en un <code> dentro del <pre>
   if (props.children && props.children.props && props.children.props.className) {
     const { className, children } = props.children.props;
-
-    // Extract language from className (format: language-xxx)
     const language = className.replace("language-", "");
-    const label = language.charAt(0).toUpperCase() + language.slice(1);
 
     return (
-      <CodeBlock
-        marginTop="8"
-        marginBottom="16"
-        codes={[
-          {
-            code: children,
-            language,
-            label,
-          },
-        ]}
-        copyButton={true}
-      />
+      <pre
+        style={{
+          marginTop: "8px",
+          marginBottom: "16px",
+          padding: "16px",
+          borderRadius: "var(--radius-m, 8px)",
+          background: "var(--neutral-alpha-weak, rgba(0,0,0,0.05))",
+          overflow: "auto",
+          fontSize: "0.875rem",
+          lineHeight: "1.6",
+          fontFamily: "var(--font-code, monospace)",
+        }}
+        data-language={language}
+      >
+        <code>{children}</code>
+      </pre>
     );
   }
 
-  // Fallback for other pre tags or empty code blocks
   return <pre {...props} />;
 }
 
@@ -188,7 +187,6 @@ const components = {
   hr: createHR as any,
   Heading,
   Text,
-  CodeBlock,
   InlineCode,
   Accordion,
   AccordionGroup,
