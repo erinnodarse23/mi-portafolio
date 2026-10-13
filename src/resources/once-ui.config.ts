@@ -14,7 +14,7 @@ import {
 import { home, person, social } from "./content";
 
 
-const baseURL: string = "https://tu-portafolio.vercel.app";
+const baseURL: string = "https://erinnodarse.vercel.app";
 
 const routes: RoutesConfig = {
   "/": true,
