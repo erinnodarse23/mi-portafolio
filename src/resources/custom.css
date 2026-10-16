@@ -82,23 +82,23 @@
   width: 100%;
   max-width: 1400px;
   border-radius: 2rem;
-  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
-  /* Glassmorphism modo claro */
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  overflow: clip;
+  /* Glassmorphism modo claro (humo) */
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Glassmorphism modo oscuro */
+/* Glassmorphism modo oscuro (espacio) */
 [data-theme="dark"] .portfolio-card {
-  background: rgba(15, 15, 15, 0.55);
+  background: rgba(15, 18, 35, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
     0 10px 40px rgba(0, 0, 0, 0.5),
@@ -123,6 +123,44 @@
     border-radius: 1.25rem;
   }
 }
+
 [class*="Fade-module"] {
   display: none !important;
+}
+
+/* El Header ya no se queda pegado al viewport */
+.portfolio-card header {
+  position: relative !important;
+  top: auto !important;
+}
+
+/* Fuerza que el contenido interno respete los bordes del card */
+.portfolio-card > * {
+  min-width: 0;
+}
+
+/* Fondo fijo */
+body > div[class*="RevealFx"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+/* Asegurar que el canvas esté visible */
+canvas {
+  z-index: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* El fondo de Once UI no debe tener fondo sólido */
+body > div[class*="RevealFx"] > div {
+  background: transparent !important;
 }

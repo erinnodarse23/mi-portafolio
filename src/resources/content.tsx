@@ -213,7 +213,6 @@ const about: About = {
       tags: [
         { name: "Git", icon: "git" },
         { name: "GitHub", icon: "github" },
-        { name: "Docker", icon: "docker" },
         { name: "Postman", icon: "postman" },
       ],
       images: [],

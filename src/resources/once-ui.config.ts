@@ -85,9 +85,9 @@ const fonts: FontsConfig = {
 // default customization applied to the HTML in the main layout.tsx
 const style: StyleConfig = {
   theme: "system",
-  neutral: "sand",
-  brand: "moss",
-  accent: "yellow",
+  neutral: "slate",      // ← de sand a slate
+  brand: "indigo",       // ← de moss a indigo
+  accent: "violet",      // ← de yellow a violet
   solid: "contrast",
   solidStyle: "flat",
   border: "rounded",
