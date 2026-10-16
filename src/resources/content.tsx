@@ -70,7 +70,8 @@ const home: Home = {
     <>
       Construyo sistemas backend robustos, desde el modelo de datos hasta la API.
       Experiencia en <Text as="span" weight="strong">arquitectura en capas</Text>,
-      seguridad con JWT y testing estructurado. Busco oportunidades remotas.
+      seguridad con JWT y testing estructurado. Busco oportunidades de trabajo de 
+      forma remota.
     </>
   ),
 };
@@ -102,9 +103,9 @@ const about: About = {
         ECASA S.A. y del sistema de gestión para la Biblioteca Santa Lucía, este
         último como proyecto académico enfocado exclusivamente en backend. En ambos
         aprendí a valorar la seguridad, el testing y la separación clara de
-        responsabilidades. Busco oportunidades remotas donde pueda aportar mi
-        experiencia en backend y seguir creciendo. Estoy mejorando mi inglés
-        técnico para trabajar con equipos internacionales; mi español es nativo.
+        responsabilidades. Busco oportunidades de trabajo de forma remota donde 
+        pueda aportar mi experiencia en backend y seguir creciendo. Estoy mejorando 
+        mi inglés técnico para trabajar con equipos internacionales; mi español es nativo.
       </>
     ),
   },
