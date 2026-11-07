@@ -5,54 +5,34 @@ const person: Person = {
   firstName: "Erin",
   lastName: "Nodarse Gonzalez",
   name: `Erin Nodarse`,
-  role: "Desarrollador Backend",
+  role: "Desarrollador Backend Java", 
   avatar: "/images/avatar.jpg",
   email: "nodarseerin1@gmail.com",
-  location: "America/Havana", // Zona horaria de Cuba
+  location: "America/Havana",
   languages: ["Español (nativo)", "Inglés (básico)"],
-  locale: "es", // Español para el atributo lang del HTML
+  locale: "es",
 };
 
 const newsletter: Newsletter = {
-  display: false, // Desactivado por ahora
+  display: false,
   title: <>Suscríbete al newsletter de {person.firstName}</>,
-  description: <>Novedades sobre desarrollo web y proyectos</>,
+  description: <>Novedades sobre desarrollo backend</>,
 };
 
 const social: Social = [
-  {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/erinnodarse23",
-    essential: true,
-  },
-  {
-    name: "LinkedIn",
-    icon: "linkedin",
-    link: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba",
-    essential: true,
-  },
-  {
-    name: "Email",
-    icon: "email",
-    link: `https://mail.google.com/mail/?view=cm&fs=1&to=${person.email}`,
-    essential: true,
-  },
-  {
-    name: "WhatsApp",
-    icon: "whatsapp",
-    link: "https://wa.me/5359794572",
-    essential: true,
-  },
+  { name: "GitHub", icon: "github", link: "https://github.com/erinnodarse23", essential: true },
+  { name: "LinkedIn", icon: "linkedin", link: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba", essential: true },
+  { name: "Email", icon: "email", link: `https://mail.google.com/mail/?view=cm&fs=1&to=${person.email}`, essential: true },
+  { name: "WhatsApp", icon: "whatsapp", link: "https://wa.me/5359794572", essential: true },
 ];
 
 const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Inicio",
-  title: `${person.name} – Desarrollador Backend | Node.js · PostgreSQL`,
-  description: `Portafolio de ${person.name}, Desarrollador Backend especializado en Node.js, PostgreSQL y arquitectura de APIs REST.`,
-  headline: <>Desarrollador Backend · Node.js · PostgreSQL</>,
+  title: `${person.name} – Desarrollador Backend Java | Spring Boot`,
+  description: `Portafolio de ${person.name}, Desarrollador Backend especializado en Java, Spring Boot y PostgreSQL.`,
+  headline: <>Desarrollador Backend · Java · Spring Boot · PostgreSQL</>,
   featured: {
     display: true,
     title: (
@@ -60,7 +40,7 @@ const home: Home = {
         <strong className="ml-4">Proyecto destacado</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
-          ECASA Telefonía
+          Sistema de Telefonía ECASA
         </Text>
       </Row>
     ),
@@ -68,10 +48,9 @@ const home: Home = {
   },
   subline: (
     <>
-      Construyo sistemas backend robustos, desde el modelo de datos hasta la API.
-      Experiencia en <Text as="span" weight="strong">arquitectura en capas</Text>,
-      seguridad con JWT y testing estructurado. Busco oportunidades de trabajo de 
-      forma remota.
+      Construyo APIs REST robustas con <Text as="span" weight="strong">arquitectura en capas</Text>, 
+      seguridad con Spring Security y persistencia con Spring JDBC y JPA. 
+      Especializado en Java 17, Spring Boot 3 y PostgreSQL. Busco oportunidades de trabajo de forma remota.
     </>
   ),
 };
@@ -97,15 +76,18 @@ const about: About = {
     title: "Introducción",
     description: (
       <>
-        Soy desarrollador backend radicado en Cuba. Me especializo en diseñar y
-        construir APIs REST, modelos de datos y arquitecturas en capas. He diseñado
-        la arquitectura de software del sistema de gestión de telefonía móvil para
-        ECASA S.A. y del sistema de gestión para la Biblioteca Santa Lucía, este
-        último como proyecto académico enfocado exclusivamente en backend. En ambos
-        aprendí a valorar la seguridad, el testing y la separación clara de
-        responsabilidades. Busco oportunidades de trabajo de forma remota donde 
-        pueda aportar mi experiencia en backend y seguir creciendo. Estoy mejorando 
-        mi inglés técnico para trabajar con equipos internacionales; mi español es nativo.
+        Soy desarrollador backend radicado en Cuba, próximo a graduarme como <strong>Ingeniero Informático</strong>. 
+        Mi formación universitaria y mayor experiencia técnica está en el ecosistema <strong>Java + Spring Boot</strong>. 
+        Me especializo en diseñar APIs REST, modelos de datos relacionales y arquitecturas 
+        en capas con separación clara de responsabilidades.
+        <br /><br />
+        He construido sistemas backend para clientes reales como ECASA S.A., aplicando 
+        seguridad con Spring Security, testing con JUnit y Mockito, y despliegue con Docker. 
+        También tengo experiencia con Node.js, lo que me permite adaptarme a diferentes stacks.
+        <br /><br />
+        Busco oportunidades de trabajo de forma remota donde pueda aportar mi experiencia en backend y seguir 
+        creciendo profesionalmente. Estoy trabajando activamente en mejorar mi inglés técnico 
+        para colaborar en equipos internacionales; mi español es nativo.
       </>
     ),
   },
@@ -113,7 +95,7 @@ const about: About = {
     display: true,
     title: "Experiencia",
     experiences: [
-            {
+      {
         company: "Sistema de Control de Telefonía — ECASA S.A.",
         timeframe: "2025 – 2026",
         role: "Arquitecto backend y desarrollador principal",
@@ -137,7 +119,7 @@ const about: About = {
         ],
         images: [],
       },
-            {
+      {
         company: "Biblioteca Santa Lucía",
         timeframe: "Proyecto de curso, 2026",
         role: "Arquitecto de datos y desarrollador backend",
@@ -169,72 +151,68 @@ const about: About = {
     institutions: [
       {
         name: "Universidad Agraria de La Habana",
-        description: <>Ingeniería Informática. En curso.</>,
+        description: <>Ingeniería Informática. Graduación prevista: 2026.</>,
       },
     ],
   },
   technical: {
-  display: true,
-  title: "Habilidades técnicas",
-  skills: [
-    {
-      title: "Lenguajes",
-      description: (
-        <>Lenguajes con los que trabajo habitualmente en proyectos backend y frontend.</>
-      ),
-      tags: [
-        { name: "TypeScript", icon: "typescript" },
-        { name: "JavaScript", icon: "javascript" },
-        { name: "SQL", icon: "postgresql" },
-      ],
-      images: [],
-    },
-    {
-      title: "Backend",
-      description: (
-        <>APIs REST con arquitectura en capas, seguridad con JWT y persistencia con PostgreSQL.</>
-      ),
-      tags: [
-        { name: "Node.js", icon: "nodejs" },
-        { name: "Express", icon: "express" },
-        { name: "PostgreSQL", icon: "postgresql" },
-        { name: "JWT", icon: "jwt" },
-        { name: "Swagger", icon: "swagger" },
-      ],
-      images: [],
-    },
-    {
-      title: "Herramientas",
-      description: (
-        <>Control de versiones, testing y despliegue de aplicaciones backend.</>
-      ),
-      tags: [
-        { name: "Git", icon: "git" },
-        { name: "GitHub", icon: "github" },
-        { name: "Postman", icon: "postman" },
-      ],
-      images: [],
-    },
-    {
-      title: "Frontend",
-      description: (
-        <>Conocimientos de React y Next.js para construir interfaces que consumen mis APIs.</>
-      ),
-      tags: [
-        { name: "React", icon: "react" },
-        { name: "Next.js", icon: "nextjs" },
-        { name: "Tailwind", icon: "tailwind" },
-      ],
-      images: [],
-    },
-  ],
-},
+    display: true,
+    title: "Habilidades técnicas",
+    skills: [
+      {
+        title: "Lenguajes",
+        description: <>Lenguajes con los que trabajo habitualmente en backend.</>,
+        tags: [
+          { name: "Java", icon: "java" },
+          { name: "SQL", icon: "postgresql" },
+          { name: "TypeScript", icon: "typescript" },
+        ],
+        images: [],
+      },
+      {
+        title: "Backend & Frameworks",
+        description: <>APIs REST con arquitectura en capas y seguridad enterprise.</>,
+        tags: [
+          { name: "Spring Boot", icon: "spring" },
+          { name: "Spring Security", icon: "spring" },
+          { name: "Spring Data JPA", icon: "spring" },
+          { name: "Hibernate", icon: "java" },
+          { name: "Spring JDBC", icon: "spring" },
+        ],
+        images: [],
+      },
+      {
+        title: "Bases de datos & Herramientas",
+        description: <>Gestión de datos, testing y control de versiones.</>,
+        tags: [
+          { name: "PostgreSQL", icon: "postgresql" },
+          { name: "JWT", icon: "jwt" },
+          { name: "Swagger", icon: "swagger" },
+          { name: "JUnit", icon: "java" },
+          { name: "Git", icon: "git" },
+          { name: "Docker", icon: "docker" },
+          { name: "Maven", icon: "java" },
+        ],
+        images: [],
+      },
+      {
+        title: "Frontend (conocimientos)",
+        description: <>Interfaces que consumen mis APIs.</>,
+        tags: [
+          { name: "React", icon: "react" },
+          { name: "Next.js", icon: "nextjs" },
+          { name: "Tailwind", icon: "tailwind" },
+        ],
+        images: [],
+      },
+    ],
+  },
 };
 
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Escribo sobre desarrollo web y proyectos",
+  title: "Escribo sobre desarrollo backend",
   description: `Lee lo que ${person.name} ha estado haciendo recientemente`,
 };
 
@@ -242,7 +220,7 @@ const work: Work = {
   path: "/work",
   label: "Proyectos",
   title: `Proyectos – ${person.name}`,
-  description: `Proyectos de desarrollo de ${person.name}`,
+  description: `Proyectos de desarrollo backend de ${person.name}`,
 };
 
 const gallery: Gallery = {
