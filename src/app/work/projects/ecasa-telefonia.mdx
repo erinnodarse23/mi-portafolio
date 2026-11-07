@@ -3,15 +3,15 @@ title: "Sistema de Control de Telefonía Móvil — ECASA S.A."
 summary: "Sistema empresarial full stack para la gestión de telefonía móvil corporativa: control de equipos, planes, consumos, presupuestos, alertas y auditoría."
 publishedAt: "2026-10-15"
 images:
-  - "/images/projects/ecasa/dashboard.png"
   - "/images/projects/ecasa/login.png"
+  - "/images/projects/ecasa/dashboard.png"
   - "/images/projects/ecasa/alertas.png"
   - "/images/projects/ecasa/monitoreo.png"
   - "/images/projects/ecasa/tendencias.png"
   - "/images/projects/ecasa/presupuesto.png"
 team:
   - name: "Erin Nodarse Gonzalez"
-    role: "Arquitecto backend y desarrollador principal"
+    role: "Ingeniero de Software | Backend Java"
     avatar: "/images/avatar.jpg"
     linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
 link: "https://github.com/erinnodarse23/telefonia-ecasa"
@@ -27,7 +27,12 @@ Diseñé y construí un sistema empresarial full stack que automatiza la gestió
 
 **El sistema cuenta con 92 tests automatizados (82 backend, 10 frontend) y está desplegado en producción.**
 
+🔗 **[Ver Demo en Vivo](https://ctm-ecasa.onrender.com)** · 📚 **[Documentación Swagger](https://telefonia-ecasa.onrender.com/swagger-ui.html)**
+
+*(Nota: El backend está en el plan gratuito de Render, por lo que puede tardar hasta 60 segundos en despertar en el primer acceso).*
+
 ## Decisiones de arquitectura destacadas
+
 
 - **`JdbcTemplate` en vez de JPA/Hibernate**: El 80% de las queries del dashboard son agregaciones complejas con `LEFT JOIN LATERAL`, `make_date()` y `SUM/AVG` anidados. JPA las convertiría en `@Query(nativeQuery=true)`, añadiendo overhead sin beneficio. Con `JdbcTemplate` el SQL es legible, testeable y controlable.
 - **Atribución histórica de UEB**: Un consumo del mes se atribuye a la UEB de la asignación activa al último día del mes, no a la actual (estándar en reportes financieros para evitar que cambios a mitad de mes "regalen" consumo).

@@ -1,0 +1,80 @@
+---
+title: "JdbcTemplate vs JPA: por qué elegí SQL puro para el dashboard de ECASA"
+publishedAt: "2026-11-05"
+summary: "Cómo tomar decisiones de arquitectura basadas en rendimiento y no en modas. Un análisis de cuándo usar ORM y cuándo escribir SQL a mano."
+team:
+  - name: "Erin Nodarse Gonzalez"
+    role: "Ingeniero de Software | Backend Java"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
+---
+
+## El dilema del ORM
+
+Cuando empiezas un proyecto en Spring Boot, el camino por defecto parece ser JPA con Hibernate. Es cómodo: creas tus entidades con `@Entity`, extiendes `JpaRepository` y dejas que el framework genere las queries por ti.
+
+Pero en el proyecto de **ECASA**, cuando llegué a la parte del Dashboard, me topé con un problema: **el 80% de las queries eran agregaciones complejas**.
+
+Necesitaba calcular promedios, sumatorias y comparativas entre años, usando `LEFT JOIN LATERAL`, funciones de fecha (`make_date`) y subconsultas anidadas.
+
+## La decisión
+
+Si intentaba hacer esto con JPA, terminaba escribiendo `@Query(nativeQuery = true)` de todas formas. Es decir, estaba pagando el *overhead* de Hibernate (mapeo de entidades, caché de primer nivel, proxies) **sin ninguno de sus beneficios**.
+
+Así que tomé una decisión poco ortográfica pero muy pragmática: **usar `JdbcTemplate` para todo el módulo de reportes y dashboard.**
+
+## El resultado
+
+Con `JdbcTemplate`:
+
+1. **Las queries son legibles**: Escribo el SQL exacto, con los índices que necesito, y sé perfectamente qué va a ejecutar PostgreSQL.
+2. **El rendimiento es predecible**: No hay "magia" de Hibernate generando queries inesperadas.
+3. **El testing es más simple**: Mockeo el `JdbcTemplate` y devuelvo `Map<String, Object>`, sin tener que manejar entidades y contextos de persistencia.
+
+```java
+String sql = """
+    SELECT u.nombre as ueb,
+           SUM(c.consumo) as total,
+           COUNT(DISTINCT e.id) as equipos
+    FROM ueb u
+    LEFT JOIN equipos e ON e.ueb_id = u.id
+    LEFT JOIN consumos c ON c.equipo_id = e.id
+    WHERE c.anio = ?
+    GROUP BY u.nombre
+    """;
+
+return jdbcTemplate.query(sql, (rs, rowNum) -> new ReporteDTO(
+    rs.getString("ueb"),
+    rs.getBigDecimal("total"),
+    rs.getInt("equipos")
+), anio);
+```
+
+## ¿Cuándo SÍ usar JPA?
+
+Aclaro que **no estoy en contra de JPA**. En el mismo proyecto lo usé para los CRUDs de equipos, empleados y planes. Para operaciones simples de guardar, actualizar o buscar por ID, JPA es una maravilla.
+
+La regla que sigo es:
+- **CRUDs estándar** → JPA / Spring Data.
+- **Reportes y analítica compleja** → `JdbcTemplate` / SQL puro.
+
+## Conclusión
+
+No se trata de elegir un bando, sino de **usar la herramienta correcta para el problema correcto**. Muchas veces la decisión de arquitectura más senior no es la más "elegante" en teoría, sino la que resuelve el problema con menos fricción en producción.
+
+## ¿Te gustaría ver el código?
+
+Todo este sistema está desplegado y documentado. Puedes explorar el repositorio en GitHub o probar la demo en vivo:
+
+- 💻 **[Ver el código en GitHub](https://github.com/erinnodarse23/telefonia-ecasa)**
+- 🚀 **[Probar la demo en vivo](https://ctm-ecasa.onrender.com)**
+- 💼 **[Conecta conmigo en LinkedIn](https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba)**
+
+## Referencias
+
+- [Spring Framework Documentation: JDBC](https://docs.spring.io/spring-framework/reference/data-access/jdbc.html)
+- [Spring Data JPA Documentation](https://docs.spring.io/spring-data/jpa/reference/)
+
+---
+
+*Este artículo está basado en el sistema real de gestión de telefonía móvil para ECASA S.A. Puedes ver más detalles en [github.com/erinnodarse23/telefonia-ecasa](https://github.com/erinnodarse23/telefonia-ecasa).*

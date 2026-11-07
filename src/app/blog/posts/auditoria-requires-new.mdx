@@ -1,0 +1,86 @@
+---
+title: "Auditoría en Spring Boot: cómo evitar que un error en los logs tumbe tu transacción"
+publishedAt: "2026-11-06"
+summary: "Un error en el registro de auditoría no debería hacer fallar la operación principal. Descubre cómo usar Propagation.REQUIRES_NEW para salvar tus transacciones."
+team:
+  - name: "Erin Nodarse Gonzalez"
+    role: "Ingeniero de Software | Backend Java"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
+---
+
+## El problema
+
+En cualquier sistema empresarial (como el de gestión de telefonía móvil para ECASA S.A.), la **auditoría es obligatoria**. Necesitas registrar quién hizo qué, cuándo y desde qué IP. Si un usuario actualiza un presupuesto, debe quedar una traza de ello.
+
+Lo más instintivo es meter el registro de la traza dentro del mismo método `@Transactional` de la operación principal:
+
+```java
+@Transactional
+public void actualizarPresupuesto(PresupuestoDTO dto) {
+    // 1. Actualizar el presupuesto en la BD
+    presupuestoRepository.save(dto);
+
+    // 2. Registrar la traza de auditoría
+    trazaService.registrar("Actualización de presupuesto", dto.getUsuario());
+}
+```
+
+El problema es que **PostgreSQL (y casi cualquier base de datos relacional) no funciona así**.
+
+Si por alguna razón el `trazaService.registrar()` falla (por un constraint, un timeout, o un dato mal formado), la base de datos marca **toda la transacción como abortada**. Aunque intentes capturar la excepción con un `try/catch` en Java, PostgreSQL se niega a hacer el `COMMIT` de la operación principal.
+
+El resultado: un error en el log tumba la operación de negocio real. Un caos.
+
+## La solución: `Propagation.REQUIRES_NEW`
+
+En Spring, podemos decirle al contenedor que el método de auditoría debe ejecutarse en **su propia transacción física, independiente de la principal**.
+
+```java
+@Service
+public class TrazaService {
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void registrar(String accion, String usuario, String ip) {
+        // Este insert corre en una conexión separada
+        trazaRepository.insert(new Traza(accion, usuario, ip));
+    }
+}
+```
+
+Al usar `REQUIRES_NEW`, Spring hace lo siguiente:
+
+1. Suspende la transacción principal (la del presupuesto).
+2. Abre una **nueva conexión** a la base de datos.
+3. Ejecuta el `INSERT` de la traza.
+4. Hace `COMMIT` de esa nueva transacción.
+5. Retoma la transacción principal.
+
+Si el `INSERT` de la traza falla, **solo se revierte la traza**. La transacción principal (el presupuesto) sigue intacta y puede terminar con éxito.
+
+## El trade-off (y por qué es deseable)
+
+Hay un detalle importante: si la operación principal falla *después* de que la traza ya se guardó, tendremos una traza registrada en la base de datos para una operación que al final no ocurrió.
+
+En el contexto de auditoría, esto **no es un bug, es una feature**. La auditoría registra el **intento**, no solo el éxito. Si un usuario intentó hacer una operación pero falló, es igual de importante saber que lo intentó.
+
+## Conclusión
+
+Con una simple anotación (`Propagation.REQUIRES_NEW`), separas las responsabilidades transaccionales y blindas tu operación de negocio contra errores en la auditoría. Es uno de esos patrones que separan un código de juguete de un sistema listo para producción.
+
+## ¿Te gustaría ver el código?
+
+Todo este sistema está desplegado y documentado. Puedes explorar el repositorio en GitHub o probar la demo en vivo:
+
+- 💻 **[Ver el código en GitHub](https://github.com/erinnodarse23/telefonia-ecasa)**
+- 🚀 **[Probar la demo en vivo](https://ctm-ecasa.onrender.com)**
+- 💼 **[Conecta conmigo en LinkedIn](https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba)**
+
+## Referencias
+
+- [Spring Framework Documentation: Transaction Propagation](https://docs.spring.io/spring-framework/reference/data-access/transaction/declarative/tx-propagation.html)
+- [PostgreSQL Documentation: Transactions](https://www.postgresql.org/docs/current/tutorial-transactions.html)
+
+---
+
+*Este artículo está basado en el sistema real de gestión de telefonía móvil para ECASA S.A. Puedes ver más detalles en [github.com/erinnodarse23/telefonia-ecasa](https://github.com/erinnodarse23/telefonia-ecasa).*

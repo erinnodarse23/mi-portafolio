@@ -15,6 +15,11 @@ import {
   SiReact,
   SiTailwindcss,
   SiTypescript,
+  SiOpenjdk,
+  SiSpring,
+  SiHibernate,
+  SiApachemaven,
+  SiJunit5,
 } from "react-icons/si";
 import {
   HiArrowUpRight,
@@ -84,7 +89,7 @@ export const iconLibrary: Record<string, IconType> = {
   reddit: FaReddit,
   telegram: FaTelegram,
 
-  // Tecnologías
+  // Tecnologías (Frontend/Backend)
   javascript: SiJavascript,
   typescript: SiTypescript,
   nextjs: SiNextdotjs,
@@ -100,6 +105,13 @@ export const iconLibrary: Record<string, IconType> = {
   tailwind: SiTailwindcss,
   figma: SiFigma,
   supabase: SiSupabase,
+  
+  // Tecnologías (Java/Spring)
+  java: SiOpenjdk,
+  spring: SiSpring,
+  hibernate: SiHibernate,
+  maven: SiApachemaven,
+  junit: SiJunit5,
 };
 
 export type IconLibrary = typeof iconLibrary;

@@ -5,7 +5,7 @@ const person: Person = {
   firstName: "Erin",
   lastName: "Nodarse Gonzalez",
   name: `Erin Nodarse`,
-  role: "Desarrollador Backend Java", 
+  role: "Ingeniero de Software | Backend Java",
   avatar: "/images/avatar.jpg",
   email: "nodarseerin1@gmail.com",
   location: "America/Havana",
@@ -30,9 +30,9 @@ const home: Home = {
   path: "/",
   image: "/images/og/home.jpg",
   label: "Inicio",
-  title: `${person.name} – Desarrollador Backend Java | Spring Boot`,
-  description: `Portafolio de ${person.name}, Desarrollador Backend especializado en Java, Spring Boot y PostgreSQL.`,
-  headline: <>Desarrollador Backend · Java · Spring Boot · PostgreSQL</>,
+  title: `${person.name} – Ingeniero de Software | Backend Java · Spring Boot`,
+  description: `Portafolio de ${person.name}, Ingeniero de Software especializado en backend con Java, Spring Boot y PostgreSQL.`,
+  headline: <>Ingeniero de Software · Backend Java · Spring Boot</>,
   featured: {
     display: true,
     title: (
@@ -59,7 +59,7 @@ const about: About = {
   path: "/about",
   label: "Sobre mí",
   title: `Sobre mí – ${person.name}`,
-  description: `Conoce a ${person.name}, ${person.role} desde Cuba`,
+  description: `Conoce a ${person.name}, Ingeniero de Software especializado en Backend Java desde Cuba`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -76,18 +76,18 @@ const about: About = {
     title: "Introducción",
     description: (
       <>
-        Soy desarrollador backend radicado en Cuba, próximo a graduarme como <strong>Ingeniero Informático</strong>. 
-        Mi formación universitaria y mayor experiencia técnica está en el ecosistema <strong>Java + Spring Boot</strong>. 
-        Me especializo en diseñar APIs REST, modelos de datos relacionales y arquitecturas 
-        en capas con separación clara de responsabilidades.
-        <br /><br />
-        He construido sistemas backend para clientes reales como ECASA S.A., aplicando 
-        seguridad con Spring Security, testing con JUnit y Mockito, y despliegue con Docker. 
-        También tengo experiencia con Node.js, lo que me permite adaptarme a diferentes stacks.
-        <br /><br />
-        Busco oportunidades de trabajo de forma remota donde pueda aportar mi experiencia en backend y seguir 
-        creciendo profesionalmente. Estoy trabajando activamente en mejorar mi inglés técnico 
-        para colaborar en equipos internacionales; mi español es nativo.
+        <Text>
+          Soy Ingeniero de Software radicado en Cuba, próximo a graduarme como <strong>Ingeniero Informático</strong>. 
+          Mi formación universitaria y mayor experiencia técnica está en el ecosistema <strong>Java + Spring Boot</strong>.
+        </Text>
+        <Text>
+          Me especializo en diseñar APIs REST, modelos de datos relacionales y arquitecturas en capas con separación clara de responsabilidades. 
+          He construido sistemas backend para clientes reales como ECASA S.A., aplicando seguridad con Spring Security, testing con JUnit y Mockito, y despliegue con Docker.
+        </Text>
+        <Text>
+          Busco oportunidades de trabajo de forma remota donde pueda aportar mi experiencia en backend y seguir creciendo profesionalmente. 
+          Estoy trabajando activamente en mejorar mi inglés técnico para colaborar en equipos internacionales; mi español es nativo.
+        </Text>
       </>
     ),
   },
@@ -116,12 +116,18 @@ const about: About = {
             Desarrollé 92 tests automatizados (JUnit + Mockito + Vitest) 
             y documenté la API con Swagger/OpenAPI 3.
           </>,
+          <>
+            🚀 Proyecto desplegado en producción:{" "}
+            <a href="https://ctm-ecasa.onrender.com" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "underline" }}>
+              ctm-ecasa.onrender.com
+            </a>
+          </>,
         ],
         images: [],
       },
       {
         company: "Biblioteca Santa Lucía",
-        timeframe: "Proyecto de curso, 2026",
+        timeframe: "Proyecto de curso, 2025",
         role: "Arquitecto de datos y desarrollador backend",
         achievements: [
           <>
@@ -176,7 +182,7 @@ const about: About = {
           { name: "Spring Boot", icon: "spring" },
           { name: "Spring Security", icon: "spring" },
           { name: "Spring Data JPA", icon: "spring" },
-          { name: "Hibernate", icon: "java" },
+          { name: "Hibernate", icon: "hibernate" },
           { name: "Spring JDBC", icon: "spring" },
         ],
         images: [],
@@ -188,10 +194,10 @@ const about: About = {
           { name: "PostgreSQL", icon: "postgresql" },
           { name: "JWT", icon: "jwt" },
           { name: "Swagger", icon: "swagger" },
-          { name: "JUnit", icon: "java" },
+          { name: "JUnit", icon: "junit" },
           { name: "Git", icon: "git" },
           { name: "Docker", icon: "docker" },
-          { name: "Maven", icon: "java" },
+          { name: "Maven", icon: "maven" },
         ],
         images: [],
       },
@@ -212,8 +218,8 @@ const about: About = {
 const blog: Blog = {
   path: "/blog",
   label: "Blog",
-  title: "Escribo sobre desarrollo backend",
-  description: `Lee lo que ${person.name} ha estado haciendo recientemente`,
+  title: "Escribo sobre arquitectura backend y Java",
+  description: `Artículos técnicos sobre Java, Spring Boot, bases de datos y decisiones de arquitectura por ${person.name}`,
 };
 
 const work: Work = {
