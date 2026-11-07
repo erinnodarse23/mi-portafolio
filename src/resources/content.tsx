@@ -137,27 +137,26 @@ const about: About = {
         ],
         images: [],
       },
-      {
+            {
         company: "Biblioteca Santa Lucía",
         timeframe: "Proyecto de curso, 2026",
-        role: "Arquitecto backend y desarrollador principal",
+        role: "Arquitecto de datos y desarrollador backend",
         achievements: [
           <>
             Diseñé el modelo entidad-relación y lo normalicé hasta la Forma Normal de
             Boyce-Codd (FNBC) con justificación formal del proceso.
           </>,
           <>
-            Construí una API REST con Node.js + Express y PostgreSQL, aplicando reglas
+            Construí una API REST con <strong>Java y Spring Boot</strong> aplicando reglas
             de negocio complejas (máximo 5 préstamos simultáneos, bloqueo por morosidad,
             reseña única).
           </>,
           <>
-            Implementé consultas en SQL puro con el cliente oficial pg para cálculo de
+            Implementé consultas personalizadas con JPQL y SQL nativo para cálculo de
             calificación promedio, disponibilidad de ejemplares y usuarios vencidos.
           </>,
           <>
-            Documenté la API con Swagger UI para que cualquiera pueda probarla sin
-            necesidad de Postman.
+            Utilicé Spring Data JPA, DTOs con Java Records, Bean Validation y manejo global de errores.
           </>,
         ],
         images: [],
