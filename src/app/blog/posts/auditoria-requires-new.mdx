@@ -32,7 +32,7 @@ Si por alguna razón el `trazaService.registrar()` falla (por un constraint, un 
 
 El resultado: un error en el log tumba la operación de negocio real. Un caos.
 
-## La solución: `Propagation.REQUIRES_NEW`
+## La solución: Propagation.REQUIRES_NEW
 
 En Spring, podemos decirle al contenedor que el método de auditoría debe ejecutarse en **su propia transacción física, independiente de la principal**.
 
