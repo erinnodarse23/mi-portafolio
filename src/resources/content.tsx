@@ -113,27 +113,26 @@ const about: About = {
     display: true,
     title: "Experiencia",
     experiences: [
-      {
-        company: "ECASA S.A.",
+            {
+        company: "Sistema de Control de Telefonía — ECASA S.A.",
         timeframe: "2025 – 2026",
         role: "Arquitecto backend y desarrollador principal",
         achievements: [
           <>
-            Diseñé y construí la API REST en Node.js/Express con arquitectura en capas
-            (17 controladores, 15 servicios, 11 repositorios) para la gestión de
-            telefonía móvil corporativa.
+            Diseñé y construí la API REST con <strong>Java 17 + Spring Boot</strong> y 
+            arquitectura en capas, manejando 14 controladores y más de 20 servicios.
           </>,
           <>
-            Implementé seguridad con JWT (blacklist de tokens invalidados), bcrypt,
-            rate limiting y sanitización XSS con DOMPurify.
+            Implementé seguridad robusta con Spring Security: JWT, captcha, 
+            rate limiting en 4 niveles y sanitización XSS.
           </>,
           <>
-            Diseñé el modelo de datos en PostgreSQL (10 tablas) con índices parciales
-            y restricciones de exclusión para impedir solapamiento de asignaciones.
+            Utilicé <strong>JdbcTemplate</strong> para queries complejas de dashboard, 
+            priorizando rendimiento sobre ORM, y PostgreSQL 16 para persistencia.
           </>,
           <>
-            Desarrollé el módulo de carga masiva desde Excel con validación multi-criterio
-            y UPSERT para idempotencia.
+            Desarrollé 92 tests automatizados (JUnit + Mockito + Vitest) 
+            y documenté la API con Swagger/OpenAPI 3.
           </>,
         ],
         images: [],

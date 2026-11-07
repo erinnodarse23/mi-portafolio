@@ -1,39 +1,43 @@
 ---
 title: "Sistema de Control de Telefonía Móvil — ECASA S.A."
-summary: "Sistema web full stack para la gestión de telefonía móvil corporativa en la Empresa Cubana de Aeropuertos y Servicios Aeroportuarios."
-publishedAt: "2026-02-01"
-images: 
-   - "/images/projects/ecasa/login.png"
-   - "/images/projects/ecasa/dashboard.png"
-   - "/images/projects/ecasa/carga-excel.png"
-   - "/images/projects/ecasa/reporte-pdf.png"
-   - "/images/projects/ecasa/modo-claro.png"
+summary: "Sistema empresarial full stack para la gestión de telefonía móvil corporativa: control de equipos, planes, consumos, presupuestos, alertas y auditoría."
+publishedAt: "2026-10-15"
+images:
+  - "/images/projects/ecasa/dashboard.png"
+  - "/images/projects/ecasa/monitoreo.png"
+  - "/images/projects/ecasa/presupuesto.png"
+  - "/images/projects/ecasa/login.png"
 team:
   - name: "Erin Nodarse Gonzalez"
-    role: "Arquitecto de software y desarrollador principal"
+    role: "Arquitecto backend y desarrollador principal"
     avatar: "/images/avatar.jpg"
     linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
-link: "https://github.com/erinnodarse23/ecasa-telefonia"
+link: "https://github.com/erinnodarse23/telefonia-ecasa"
 ---
 
 ## El problema
 
-ECASA gestionaba su telefonía móvil corporativa con hojas de cálculo: duplicidad de datos, errores de digitación, sin trazabilidad, sin alertas de sobregasto y sin acceso remoto. Los excesos de consumo se detectaban tardíamente, generando sobrecostos operativos.
+ECASA S.A. gestionaba su telefonía móvil corporativa con hojas de cálculo: duplicidad de datos, errores de digitación, sin trazabilidad, sin alertas de sobregasto y sin acceso remoto. Los excesos de consumo se detectaban tardíamente, generando sobrecostos operativos.
 
 ## La solución
 
-Diseñé y construí un sistema web que automatiza la gestión completa: control de líneas, asignaciones, planes tarifarios, carga mensual de consumos desde Excel, alertas de sobregasto, dashboard ejecutivo y reportes exportables a PDF y Excel.
+Diseñé y construí un sistema empresarial full stack que automatiza la gestión completa: control de líneas, asignaciones, planes tarifarios, carga mensual de consumos desde Excel, alertas de sobregasto, dashboard ejecutivo y reportes exportables a PDF y Excel.
 
-## Decisiones de arquitectura
+**El sistema cuenta con 92 tests automatizados (82 backend, 10 frontend) y está desplegado en producción.**
 
-- **Arquitectura en capas** (presentación → controladores → servicios → repositorios → entidades) con 17 controladores, 15 servicios y 11 repositorios. Sin dependencias circulares.
-- **Modelo de datos normalizado** en PostgreSQL (10 tablas) con índices parciales para consultas frecuentes y restricciones de exclusión (`EXCLUDE USING gist`) para impedir solapamiento de asignaciones activas y planes superpuestos.
-- **Seguridad**: JWT con blacklist de tokens invalidados, bcrypt para contraseñas, rate limiting, sanitización XSS con DOMPurify y captcha en login.
-- **Modelo de roles y permisos**: Administrador, Grupo Comunicaciones y Jefe de Unidad, con filtrado por UEB a nivel de backend, no solo en el frontend.
-- **Carga de Excel con validación multi-criterio**: formato, existencia en base de datos, duplicados y valores negativos. UPSERT para idempotencia.
-- **Auditoría completa** con tabla de trazas que registra usuario, fecha, hora, acción, entidad e IP.
-- **Testing**: caja negra (particiones de equivalencia, valores límite) y caja blanca (complejidad ciclomática V(G)=7 sobre métodos críticos).
+## Decisiones de arquitectura destacadas
+
+- **`JdbcTemplate` en vez de JPA/Hibernate**: El 80% de las queries del dashboard son agregaciones complejas con `LEFT JOIN LATERAL`, `make_date()` y `SUM/AVG` anidados. JPA las convertiría en `@Query(nativeQuery=true)`, añadiendo overhead sin beneficio. Con `JdbcTemplate` el SQL es legible, testeable y controlable.
+- **Atribución histórica de UEB**: Un consumo del mes se atribuye a la UEB de la asignación activa al último día del mes, no a la actual (estándar en reportes financieros para evitar que cambios a mitad de mes "regalen" consumo).
+- **Dos capas de alertas**: Un semáforo visual en tiempo real por equipo (consumo vs cuota) y alertas persistentes en BD por UEB (70%, 85%, 100% del presupuesto y sobregasto).
+- **Rate limiting en 4 niveles**: Login (10/min), carga de archivos (10/min), exportación (20/min) y global (2000/15min) para prevenir fuerza bruta y DoS.
+- **Auditoría con `REQUIRES_NEW`**: Uso `@Transactional(propagation = Propagation.REQUIRES_NEW)` para que, si falla el registro de la traza, no aborte la transacción de negocio principal.
+- **Seguridad robusta**: JWT con expiración configurable, captcha después de 3 intentos fallidos, sanitización XSS con OWASP Sanitizer y RBAC con scoping por UEB.
 
 ## Stack
 
-React 19 · Vite · Node.js 18 · Express 5 · PostgreSQL 14 · JWT · bcrypt · multer · xlsx · exceljs · pdfkit · node-cache · DOMPurify · Swagger/OpenAPI 3.0
+**Backend:** Java 17 · Spring Boot 3.4.5 · Spring Security · Spring JDBC · JJWT · Caffeine Cache · Apache POI · OpenPDF · Springdoc OpenAPI
+**Frontend:** React 19 · Vite 8 · React Router · Recharts · Axios
+**Base de datos:** PostgreSQL 16
+**Testing:** JUnit 5 · Mockito · Vitest · Testing Library
+**Infraestructura:** Docker · Render · GitHub

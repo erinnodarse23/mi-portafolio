@@ -68,17 +68,54 @@ export default function ParticlesBackground() {
     };
 
     const initSmoke = () => {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-  // Manchas de humo con colores intensos que SÍ se ven sobre blanco
-    smokeBlobs = [
-      { x: w * 0.2, y: h * 0.3, radius: 550, vx: 0.15, vy: 0.1, color: "60, 80, 130" },
-      { x: w * 0.7, y: h * 0.2, radius: 600, vx: -0.12, vy: 0.15, color: "90, 70, 140" },
-      { x: w * 0.5, y: h * 0.7, radius: 580, vx: 0.1, vy: -0.1, color: "50, 100, 130" },
-      { x: w * 0.85, y: h * 0.75, radius: 500, vx: -0.08, vy: -0.12, color: "100, 80, 130" },
-      { x: w * 0.15, y: h * 0.8, radius: 520, vx: 0.12, vy: 0.08, color: "70, 90, 140" },
-    ];
-  };
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  smokeBlobs = [];
+
+  // Paleta de humo: azules, grises y violetas suaves
+  const colors = [
+    "110, 130, 170",
+    "130, 120, 180",
+    "100, 140, 180",
+    "140, 125, 175",
+    "115, 135, 175",
+    "95, 125, 165",
+  ];
+
+  // 60 blobs de tamaños MUY variados = humo real
+  for (let i = 0; i < 60; i++) {
+    const sizeRoll = Math.random();
+    let radius: number;
+    
+    // Distribución de tamaños: mayoría pequeños, algunos grandes
+    if (sizeRoll < 0.6) {
+      radius = Math.random() * 80 + 60;       // pequeños: 60-140
+    } else if (sizeRoll < 0.9) {
+      radius = Math.random() * 150 + 140;     // medianos: 140-290
+    } else {
+      radius = Math.random() * 250 + 250;     // grandes: 250-500
+    }
+
+    smokeBlobs.push({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      radius,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      // Fase para el movimiento orgánico (cada blob oscila distinto)
+      phaseX: Math.random() * Math.PI * 2,
+      phaseY: Math.random() * Math.PI * 2,
+      speedX: Math.random() * 0.002 + 0.001,
+      speedY: Math.random() * 0.002 + 0.001,
+      // Rotación individual
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.002,
+      // Deformación (para que no sean círculos perfectos)
+      stretch: Math.random() * 0.5 + 0.8,
+    });
+  }
+};
 
     const drawStars = () => {
       const w = window.innerWidth;
@@ -105,40 +142,51 @@ export default function ParticlesBackground() {
       });
     };
 
-    const drawSmoke = () => {
+   const drawSmoke = () => {
   const w = window.innerWidth;
   const h = window.innerHeight;
   ctx.clearRect(0, 0, w, h);
 
+  // Modo "screen": los blobs se suman como luz, creando profundidad
+  ctx.globalCompositeOperation = "screen";
+
   smokeBlobs.forEach((blob) => {
-    // Mover la mancha
-    blob.x += blob.vx;
-    blob.y += blob.vy;
+    // Movimiento orgánico: oscilación suave con seno
+    blob.x += blob.vx + Math.sin(time * blob.speedX + blob.phaseX) * 0.3;
+    blob.y += blob.vy + Math.cos(time * blob.speedY + blob.phaseY) * 0.3;
+    blob.rotation += blob.rotSpeed;
 
-    // Rebotar en los bordes
-    if (blob.x < -blob.radius || blob.x > w + blob.radius) blob.vx *= -1;
-    if (blob.y < -blob.radius || blob.y > h + blob.radius) blob.vy *= -1;
+    // Rebotar suavemente en los bordes
+    if (blob.x < -blob.radius) blob.x = w + blob.radius;
+    if (blob.x > w + blob.radius) blob.x = -blob.radius;
+    if (blob.y < -blob.radius) blob.y = h + blob.radius;
+    if (blob.y > h + blob.radius) blob.y = -blob.radius;
 
-    // Gradiente radial para efecto humo
-    const gradient = ctx.createRadialGradient(
-      blob.x,
-      blob.y,
-      0,
-      blob.x,
-      blob.y,
-      blob.radius
-    );
-    gradient.addColorStop(0, `rgba(${blob.color}, 0.45)`);
-    gradient.addColorStop(0.5, `rgba(${blob.color}, 0.20)`);
+    // Guardar el contexto para rotar y deformar
+    ctx.save();
+    ctx.translate(blob.x, blob.y);
+    ctx.rotate(blob.rotation);
+    ctx.scale(blob.stretch, 1 / blob.stretch);
+
+    // Gradiente con múltiples paradas para bordes MUY suaves (efecto humo)
+    const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, blob.radius);
+    gradient.addColorStop(0, `rgba(${blob.color}, 0.18)`);
+    gradient.addColorStop(0.25, `rgba(${blob.color}, 0.12)`);
+    gradient.addColorStop(0.5, `rgba(${blob.color}, 0.07)`);
+    gradient.addColorStop(0.75, `rgba(${blob.color}, 0.03)`);
     gradient.addColorStop(1, `rgba(${blob.color}, 0)`);
 
     ctx.beginPath();
     ctx.fillStyle = gradient;
-    ctx.arc(blob.x, blob.y, blob.radius, 0, Math.PI * 2);
+    ctx.arc(0, 0, blob.radius, 0, Math.PI * 2);
     ctx.fill();
-  });
-};
 
+    ctx.restore();
+  });
+
+  // Resetear el modo de composición
+  ctx.globalCompositeOperation = "source-over";
+};
     const draw = () => {
       time += 1;
       if (isDark()) {
