@@ -125,9 +125,9 @@ const about: About = {
         ],
         images: [],
       },
-      {
+            {
         company: "Biblioteca Santa Lucía",
-        timeframe: "Proyecto de curso, 2025",
+        timeframe: "Proyecto de curso (reestructurado), 2025 – 2026",
         role: "Arquitecto de datos y desarrollador backend",
         achievements: [
           <>
@@ -135,16 +135,21 @@ const about: About = {
             Boyce-Codd (FNBC) con justificación formal del proceso.
           </>,
           <>
-            Construí una API REST con <strong>Java y Spring Boot</strong> aplicando reglas
+            Construí una API REST con <strong>Java 25 + Spring Boot 4.1</strong> aplicando reglas
             de negocio complejas (máximo 5 préstamos simultáneos, bloqueo por morosidad,
             reseña única).
           </>,
           <>
-            Implementé consultas personalizadas con JPQL y SQL nativo para cálculo de
-            calificación promedio, disponibilidad de ejemplares y usuarios vencidos.
+            Migré el proyecto desde Spring Boot 3.5 / Java 17 / PostgreSQL 10.5 a
+            Java 25 / Spring Boot 4.1 / PostgreSQL 18, reduciendo el startup de ~45s a ~15s.
           </>,
           <>
-            Utilicé Spring Data JPA, DTOs con Java Records, Bean Validation y manejo global de errores.
+            Implementé 51 tests automatizados (16 unitarios con JUnit 5 + Mockito, 
+            35 asserts E2E) y CI con GitHub Actions sobre PostgreSQL 18.
+          </>,
+          <>
+            Utilicé Spring Data JPA, Hibernate 7, DTOs con Java Records, Bean Validation 
+            y manejo global de errores con @RestControllerAdvice.
           </>,
         ],
         images: [],

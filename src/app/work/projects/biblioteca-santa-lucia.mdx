@@ -1,39 +1,42 @@
 ---
-title: "API REST para Gestión de Biblioteca — Java + Spring Boot"
-summary: "Sistema backend para la gestión integral de una biblioteca académica: catálogo, autores, usuarios, préstamos y reseñas, con arquitectura en capas y normalización hasta FNBC."
-publishedAt: "2025-11-01"
+title: "API REST para Gestión de Biblioteca — Java 25 + Spring Boot 4"
+summary: "Sistema backend para gestión bibliotecaria con Java 25, Spring Boot 4.1, PostgreSQL 18 y 51 tests automatizados. Modelado relacional, JPA/Hibernate, Bean Validation y reglas de negocio complejas."
+publishedAt: "2026-11-13"
 images:
-  - "/images/projects/biblioteca/postman-5 prestamos activos.png"
-  - "/images/projects/biblioteca/diagrama-er.png"
-  - "/images/projects/biblioteca/postman-detalle.png"
-  - "/images/projects/biblioteca/postman-detalle.png"
   - "/images/projects/biblioteca/swagger-ui.png"
+  - "/images/projects/biblioteca/postman-detalle.png"
+  - "/images/projects/biblioteca/diagrama-er.png"
+  - "/images/projects/biblioteca/schema-sql.png"
+  - "/images/projects/biblioteca/postman-5 prestamos activos.png"
 team:
   - name: "Erin Nodarse Gonzalez"
     role: "Ingeniero de Software | Backend Java"
     avatar: "/images/avatar.jpg"
     linkedIn: "https://www.linkedin.com/in/erin-nodarse-gonzález-1266913ba"
-link: "https://github.com/erinnodarse23/biblioteca-santa-lucia"
+link: "https://github.com/erinnodarse23/backend-biblioteca-santa-lucia"
 ---
 
 ## El contexto
 
 La Biblioteca Santa Lucía gestionaba su catálogo con fichas de cartón y hojas de cálculo no centralizadas: redundancia, pérdida de tiempo y sin acceso remoto. El proyecto consistió en diseñar y construir el backend de un sistema que digitalizara el control de préstamos, devoluciones y reseñas.
 
+Nació como trabajo académico de 2º año y fue **reestructurado completamente para portafolio** con stack actualizado a las últimas versiones LTS, tests automatizados, Docker y CI/CD.
+
 ## La solución
 
-Diseñé el modelo entidad-relación, lo normalicé hasta la Forma Normal de Boyce-Codd, lo implementé en PostgreSQL y construí una API REST con Java y Spring Boot que expone operaciones CRUD y funcionalidades especializadas: calificación promedio por libro, consulta de préstamos por rango de fechas, usuarios con préstamos vencidos y verificación de reseñas únicas.
+Diseñé el modelo entidad-relación, lo normalicé hasta la Forma Normal de Boyce-Codd, lo implementé en PostgreSQL y construí una API REST con **Java 25 y Spring Boot 4.1** que expone operaciones CRUD y funcionalidades especializadas: calificación promedio por libro, consulta de préstamos por rango de fechas, usuarios con préstamos vencidos y verificación de reseñas únicas.
 
 ## Decisiones de arquitectura
 
-- **Modelo de datos normalizado hasta FNBC** (6 tablas: Autor, Género, Libro, Usuario, Préstamo, Reseña) con justificación formal del proceso de normalización y del determinante `(id_usuario, ISBN)` como clave candidata.
-- **Arquitectura en 4 capas** (Controller → Service → Repository → Entity) con separación estricta de responsabilidades usando Spring Web y Spring Data JPA.
-- **Reglas de negocio en la capa de servicio**: máximo 5 préstamos simultáneos, bloqueo por morosidad, disponibilidad de ejemplares, reseña única por usuario-libro y reseña posterior a la devolución.
-- **DTOs con `record` de Java 17** para inmutabilidad y reducción de boilerplate.
-- **Manejo global de errores** con `@RestControllerAdvice` para respuestas JSON uniformes.
-- **Validaciones declarativas** con Bean Validation (`@NotBlank`, `@Min`, `@Max`) separadas del código de negocio.
-- **Consultas híbridas**: métodos derivados por nombre, JPQL para agregaciones (promedio, disponibilidad) y SQL nativo para casos complejos.
+- **Java 25 LTS con Virtual Threads** habilitados para mejor throughput.
+- **Spring Boot 4.1.2 + Spring Framework 7 + Hibernate 7**: migración completa desde Spring Boot 3.5 / Java 17 / PostgreSQL 10.5, reduciendo el startup de ~45s a ~15s.
+- **Arquitectura en 4 capas** (Controller → Service → Repository → Entity) con 6 módulos de dominio y DTOs con Java Records.
+- **JPA/Hibernate sobre JdbcTemplate**: el 100% de las queries son CRUD sobre entidades con relaciones bien definidas, donde JPA brilla. (En ECASA, en cambio, usé JdbcTemplate porque eran agregaciones complejas).
+- **Bean Validation en DTOs**, no en entidades, manteniendo separadas las responsabilidades de API y persistencia.
+- **GlobalExceptionHandler** con distinción semántica: 400 (validación), 404 (no encontrado), 409 (regla de negocio o FK violation sin leaks), 500 (sin exponer stack traces).
+- **51 tests automatizados**: 16 unitarios (JUnit 5 + Mockito) + 35 asserts E2E con smoke test contra PostgreSQL real.
+- **Docker Compose** para entorno local reproducible y **GitHub Actions CI** con PostgreSQL 18.
 
 ## Stack
 
-Java 17 · Spring Boot 3.2 · Spring Data JPA · Hibernate · PostgreSQL 14 · Maven · Lombok · Bean Validation · Postman
+Java 25 LTS · Spring Boot 4.1.2 · Spring Framework 7 · Spring Data JPA · Hibernate 7 · PostgreSQL 18.6 · Bean Validation · Lombok · Maven · Swagger/OpenAPI 3.1 · Docker · GitHub Actions
